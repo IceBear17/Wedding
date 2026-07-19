@@ -1,0 +1,419 @@
+/* ==========================================================================
+   STATIONERY LAYOUT & SPIRITUAL FRAME SYSTEM
+   ========================================================================== */
+
+.details-stage {
+    width: 100%;
+    min-height: 180vh; /* Expansive scrolling depth */
+    padding: 120px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* Elegant Inner Card Wrapper sitting over the Canvas layer */
+.card-paper-canvas {
+    width: 100%;
+    max-width: 650px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 90px; /* Generous breathing room between content elements */
+}
+
+/* Calligraphy Packaging Blocks */
+.spiritual-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* --- High-End Native Arabic Typography Style --- */
+.arabic-text {
+    font-family: 'Amiri', serif;
+    font-weight: 400;
+    color: var(--accent-gold);
+    text-align: center;
+    direction: rtl; /* Sets correct right-to-left layout standard */
+    margin-bottom: 12px;
+    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.05));
+}
+
+.bismillah-text {
+    font-size: 2.5rem;
+    letter-spacing: 0;
+}
+
+.salaam-text {
+    font-size: 2.1rem;
+    letter-spacing: 0;
+    margin-top: 10px;
+}
+
+/* Minimalist Editorial English Translations */
+.translation-text {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: #7a756c;
+    letter-spacing: 1px;
+    font-family: var(--font-serif);
+    max-width: 80%;
+    line-height: 1.5;
+}
+
+/* Formal Invitation Typography Set */
+.invitation-narrative {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.host-line {
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 5px;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+}
+
+.request-phrase {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: #8a857c;
+    line-height: 1.8;
+    max-width: 85%;
+    margin-bottom: 45px;
+}
+
+/* Master Cinematic Name Typography */
+.couple-names {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.name-prime {
+    font-size: 3.8rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: var(--accent-gold);
+    font-family: var(--font-serif);
+    line-height: 1.1;
+}
+
+.ampersand {
+    font-size: 1.8rem;
+    font-style: italic;
+    color: #8a857c;
+    font-family: var(--font-serif);
+    margin: 5px 0;
+}
+
+.celebration-intent {
+    font-size: 1.1rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-dark);
+    font-family: var(--font-serif);
+}
+
+/* --- Smooth Scroll Reveal Classes --- */
+.fade-in-element {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.2s cubic-bezier(0.215, 0.610, 0.355, 1), 
+                transform 1.2s cubic-bezier(0.215, 0.610, 0.355, 1);
+    will-change: transform, opacity;
+}
+
+.fade-in-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* details panel */
+/* ==========================================================================
+   STRUCTURAL STATIONERY DETAIL PANELS
+   ========================================================================= */
+
+.details-panel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* The Matte Floating Card Base */
+.paper-panel {
+    position: relative;
+    background: rgba(253, 251, 247, 0.82); /* Semitransparent cream matching stationery */
+    backdrop-filter: blur(12px); /* Let petals pass beautifully behind the paper */
+    -webkit-backdrop-filter: blur(12px);
+    padding: 40px 24px;
+    border-radius: 4px;
+    box-shadow: 0 10px 35px rgba(44, 44, 44, 0.04), 
+                0 1px 3px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Thin Elegant Gold Framing inside the panels */
+.panel-accent-border {
+    position: absolute;
+    top: 10px; right: 10px; bottom: 10px; left: 10px;
+    border: 1px solid rgba(195, 155, 58, 0.22); /* Softened gold border */
+    pointer-events: none;
+    border-radius: 2px;
+}
+
+/* Panel Internal Typography Hierarchy */
+.panel-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #8a857c;
+    font-weight: 400;
+}
+
+.panel-divider {
+    width: 35px;
+    height: 1px;
+    background-color: var(--accent-gold);
+    opacity: 0.35;
+    margin: 16px 0;
+}
+
+.panel-highlight {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-gold);
+    font-family: var(--font-serif);
+    margin-bottom: 4px;
+}
+
+.panel-main-text {
+    font-size: 1.3rem;
+    color: var(--text-dark);
+    font-family: var(--font-serif);
+    line-height: 1.3;
+}
+
+.panel-sub-text {
+    font-size: 0.8rem;
+    color: #7a756c;
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+}
+
+/* Minimalist Button Styling */
+.maps-link-btn {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-dark);
+    border-bottom: 1px solid var(--accent-gold);
+    padding-bottom: 4px;
+    transition: color 0.3s ease, border-color 0.3s ease;
+    z-index: 3;
+}
+
+.btn-arrow {
+    transition: transform 0.3s ease;
+}
+
+.maps-link-btn:hover {
+    color: var(--accent-gold);
+}
+
+.maps-link-btn:hover .btn-arrow {
+    transform: translateX(4px);
+}
+
+/* Full Width Panel Variations */
+.full-width-panel {
+    width: 100%;
+}
+
+.split-panel-content {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+.split-section {
+    flex: 1;
+    text-align: center;
+}
+
+.vertical-panel-divider {
+    width: 1px;
+    height: 70px;
+    background-color: rgba(195, 155, 58, 0.15);
+}
+
+/* --- Responsive Media Queries for Mobile Screens --- */
+@media (max-width: 600px) {
+    .details-panel-grid {
+        grid-template-columns: 1fr; /* Stack into a single elegant column on mobile screens */
+        gap: 20px;
+    }
+    
+    .split-panel-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .vertical-panel-divider {
+        width: 50%;
+        height: 1px;
+    }
+    
+    .paper-panel {
+        padding: 35px 20px;
+    }
+}
+
+/* ==========================================================================
+   GRAND STATIONERY STACK & ABSTRACT SHAPE GEOMETRY
+   ========================================================================= */
+
+.grand-panel-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+/* Enlarged Grand Card Base */
+.grand-card {
+    width: 100% !important;
+    min-height: 240px;
+    padding: 50px 40px;
+    position: relative;
+    overflow: hidden; /* Clips the background artwork lines inside the card */
+}
+
+/* Ensure typography stays layered cleanly over our abstract shapes */
+.grand-card-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.main-details-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 24px;
+    gap: 20px;
+}
+
+.detail-block {
+    flex: 1;
+    text-align: center;
+}
+
+/* ==========================================================================
+   NATIVE ABSTRACT LINE ENGINE
+   ========================================================================= */
+
+.abstract-geometry {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.28; /* Softened so it accents rather than distracts from typography */
+}
+
+.geo-line {
+    position: absolute;
+    background-color: var(--accent-gold);
+}
+
+/* Structural Card Fine Lines Layout */
+.geo-architecture .line-left {
+    left: 15%; top: 0;
+    width: 1px; height: 100%;
+}
+.geo-architecture .line-right {
+    right: 15%; top: 0;
+    width: 1px; height: 100%;
+}
+
+/* Central Circular Fine Frame Shape */
+.geo-architecture .geo-circle {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 280px; height: 280px;
+    border: 1px double rgba(195, 155, 58, 0.4);
+    border-radius: 50%;
+}
+
+/* Modernist Fine Shapes Layout */
+.geo-modernist .geo-diamond {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 160px; height: 160px;
+    border: 1px solid var(--accent-gold);
+}
+.geo-modernist .line-diagonal-1 {
+    left: 0; top: 0;
+    width: 140%; height: 1px;
+    transform: rotate(14deg);
+    transform-origin: top left;
+}
+.geo-modernist .line-diagonal-2 {
+    right: 0; top: 0;
+    width: 140%; height: 1px;
+    transform: rotate(-14deg);
+    transform-origin: top right;
+}
+
+/* --- Responsive Adaptability for Mobile Layouts --- */
+@media (max-width: 650px) {
+    .grand-card {
+        padding: 45px 20px;
+    }
+    
+    .main-details-row {
+        flex-direction: column;
+        gap: 35px;
+    }
+    
+    .main-details-row .vertical-panel-divider {
+        width: 40%;
+        height: 1px;
+    }
+    
+    /* Soften geometric shapes on tight phone display footprints */
+    .geo-architecture .geo-circle {
+        width: 200px; height: 200px;
+    }
+    .geo-modernist .geo-diamond {
+        width: 110px; height: 110px;
+    }
+}

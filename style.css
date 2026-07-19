@@ -250,6 +250,50 @@ body, html {
     opacity: 0;
 }
 
+/* ==========================================================================
+   Countdown Timer
+   ========================================================================== */
+
+/* --- High-End Countdown Grid --- */
+#countdown-container {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin: 32px auto 0 auto;
+    max-width: 400px;
+    opacity: 0.9;
+}
+
+.time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+}
+
+.time-block span {
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text-dark);
+    letter-spacing: 1px;
+    font-family: var(--font-serif);
+}
+
+.time-block label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #8a857c;
+    margin-top: 4px;
+}
+
+/* --- Adjusted Scroll Indicator Spacing --- */
+.scroll-indicator {
+    margin-top: 80px; /* Pushed significantly lower as requested */
+    font-size: 2rem;
+    color: var(--accent-gold);
+    animation: breathe 2.2s infinite ease-in-out;
+}
 
 /* ==========================================================================
    SCROLLABLE HERO CONTENT (Retain)

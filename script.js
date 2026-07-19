@@ -149,3 +149,122 @@ function animate() {
     requestAnimationFrame(animate);
 }
 animate();
+
+//Countdown
+// --- Premium Wedding Countdown Logic ---
+function initCountdown() {
+    // Target: August 21 at 20:00 (8:00 PM)
+    const targetDate = new Date("August 21, 2026 20:00:00").getTime();
+
+    const timer = setInterval(() => {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference < 0) {
+            clearInterval(timer);
+            document.getElementById("countdown-container").innerHTML = "<div class='celebrate-text'>The Celebration Has Begun</div>";
+            return;
+        }
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = String(days).padStart(2, '0');
+        document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+        document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+        document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+    }, 1000);
+}
+
+// Fire countdown setup safely
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCountdown);
+} else {
+    initCountdown();
+}
+
+// --- High-Performance Scroll Reveal Engine ---
+function initScrollAnimations() {
+    const fadeElements = document.querySelectorAll('.fade-in-element');
+    
+    const observerOptions = {
+        root: null, // Viewport standard tracking
+        threshold: 0.12, // Element percentage visible before firing trigger
+        rootMargin: "0px 0px -40px 0px" // Slight offset padding for cleaner appearance
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Once visible, decouple observation loop to optimize frame rates
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    fadeElements.forEach(element => {
+        observer.observe(element);
+    });
+}
+
+// Safely configure observers on content mounting completion
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initScrollAnimations);
+} else {
+    initScrollAnimations();
+}
+
+// --- Interactive Blessings Footer Trigger System ---
+const stampBtn = document.getElementById('blessings-stamp-btn');
+const counterLabel = document.getElementById('blessings-counter');
+
+if (stampBtn) {
+    stampBtn.addEventListener('click', (e) => {
+        // 1. Toggle Button Visual Stamp Class state
+        stampBtn.classList.add('stamped');
+        counterLabel.classList.add('show');
+        
+        // 2. Fetch stamp window location geometry metrics
+        const btnRect = stampBtn.getBoundingClientRect();
+        const emitX = btnRect.left + btnRect.width / 2;
+        const emitY = btnRect.top + btnRect.height / 2;
+
+        // 3. Inject customized golden burst particles straight into the running particle array
+        if (typeof petalsArray !== 'undefined') {
+            for (let i = 0; i < 18; i++) {
+                const blessingParticle = new Petal();
+                
+                // Override standard top fall configuration vectors for a fountain burst effect
+                blessingParticle.x = emitX;
+                blessingParticle.y = emitY;
+                blessingParticle.size = Math.random() * 6 + 4;
+                blessingParticle.speedY = Math.random() * -4 - 2; // Shoot upwards violently
+                blessingParticle.speedX = Math.random() * 6 - 3;  // Fan out wide left and right
+                blessingParticle.opacity = 0.9;
+                
+                // Switch default color variable assignment temporarily into shimmering gold accents
+                blessingParticle.draw = function() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.angle);
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.bezierCurveTo(-this.size, -this.size / 2, -this.size, this.size, 0, this.size * 1.5);
+                    ctx.bezierCurveTo(this.size, this.size, this.size, -this.size / 2, 0, 0);
+                    
+                    // Premium sparkling gold color layer profile
+                    ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+                    ctx.shadowBlur = 6;
+                    ctx.shadowColor = "rgba(212, 175, 55, 0.4)";
+                    ctx.fill();
+                    ctx.restore();
+                };
+                
+                petalsArray.push(blessingParticle);
+            }
+        }
+    });
+}

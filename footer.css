@@ -1,0 +1,146 @@
+/* ==========================================================================
+   INTERACTIVE FOOTER STYLING SYSTEM
+   ========================================================================= */
+
+.stationery-footer {
+    width: 100%;
+    margin-top: 60px; /* Provides consistent spacing beneath the cards */
+    padding-top: 20px;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Minimalist Decorative Scroll End Line */
+.footer-divider-art {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    position: relative;
+    margin-bottom: 40px;
+    opacity: 0.5;
+}
+.art-dot {
+    position: absolute;
+    top: -3px; left: 50%;
+    transform: translateX(-50%);
+    width: 7px; height: 7px;
+    background-color: var(--accent-gold);
+    border-radius: 50%;
+}
+
+/* Beautiful Script Quranic Closing Quote */
+.closing-verse {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #6e6a62;
+    line-height: 1.7;
+    max-width: 85%;
+    font-family: var(--font-serif);
+    margin-bottom: 45px;
+}
+.verse-reference {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-gold);
+    margin-top: 10px;
+    font-style: normal;
+}
+
+/* --- Interactive Signature Stamp Engine --- */
+.signature-interactive-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.interaction-prompt {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #8a857c;
+    margin-bottom: 16px;
+}
+
+.luxury-stamp-btn {
+    width: 65px; height: 65px;
+    border-radius: 50%;
+    border: none;
+    background: radial-gradient(circle, #f7dfa3 0%, var(--accent-gold) 100%);
+    color: #ffffff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 15px rgba(195, 155, 58, 0.25), inset 0 2px 4px rgba(255,255,255,0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+.stamp-inner-ring {
+    position: absolute;
+    top: 4px; left: 4px; bottom: 4px; right: 4px;
+    border: 1px dashed rgba(255, 255, 255, 0.45);
+    border-radius: 50%;
+}
+
+.stamp-icon {
+    transition: transform 0.3s ease;
+}
+
+/* Subtle Interactive States */
+.luxury-stamp-btn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 8px 20px rgba(195, 155, 58, 0.35);
+}
+.luxury-stamp-btn:active {
+    transform: scale(0.95);
+}
+
+.luxury-stamp-btn.stamped .stamp-icon {
+    transform: scale(1.2);
+    color: #ffffff;
+}
+
+.blessings-counter {
+    margin-top: 14px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: var(--accent-gold);
+    font-family: var(--font-serif);
+    opacity: 0;
+    transform: translateY(5px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.blessings-counter.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Print Studio Footer Details */
+.footer-credits {
+    font-family: var(--font-serif);
+    border-top: 1px solid rgba(44, 44, 44, 0.04);
+    width: 100%;
+    padding-top: 24px;
+}
+.credit-line {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-dark);
+}
+.date-line {
+    font-size: 0.75rem;
+    color: #9c978e;
+    margin-top: 4px;
+    letter-spacing: 1px;
+}
