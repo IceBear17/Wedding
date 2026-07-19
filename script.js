@@ -11,7 +11,7 @@ function resizeCanvas() {
 document.addEventListener('DOMContentLoaded', () => {
     resizeCanvas();
     // Re-verify positions to prevent initialization flicker
-    setTimeout(resizeCanvas, 100); 
+    setTimeout(resizeCanvas, 100);
 });
 
 window.addEventListener('resize', resizeCanvas);
@@ -78,14 +78,26 @@ class Petal {
         this.opacity = Math.random() * 0.5 + 0.3;
         this.angle = Math.random() * Math.PI * 2;
         this.spin = Math.random() * 0.02 - 0.01;
-        
+
         // Multi-layered depth assignment (closer petals move faster)
         this.layer = this.size > 10 ? 3 : (this.size > 8 ? 2 : 1);
         this.speedY *= (this.layer * 0.5);
     }
 
     update() {
-        // Base natural drift
+        // Handle unique decay/gravity logic if this is a golden blessing particle
+        if (this.isBlessing) {
+            this.opacity -= 0.012; // Smoothly fade out
+            this.y += this.speedY;
+            this.x += this.speedX;
+            this.speedY += 0.1;    // Simulated downward gravity pull
+            this.angle += this.spin;
+
+            // Do NOT call reset() for blessing petals. Just let them fade away.
+            return;
+        }
+
+        // --- Standard logic below for normal pink falling petals ---
         this.y += this.speedY;
         this.x += this.speedX + Math.sin(this.angle) * 0.2;
         this.angle += this.spin;
@@ -100,13 +112,13 @@ class Petal {
                 const force = (mouse.radius - distance) / mouse.radius;
                 const forceX = (dx / distance) * force * 5;
                 const forceY = (dy / distance) * force * 5;
-                
+
                 this.x += forceX;
                 this.y += forceY;
             }
         }
 
-        // Reset if out of bounds
+        // Reset normal petals if out of bounds
         if (this.y > canvas.height + 20 || this.x < -20 || this.x > canvas.width + 20) {
             this.reset();
         }
@@ -117,12 +129,12 @@ class Petal {
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
         ctx.beginPath();
-        
+
         // Drawing an organic, beautiful leaf/petal shape using Bezier curves
         ctx.moveTo(0, 0);
         ctx.bezierCurveTo(-this.size, -this.size / 2, -this.size, this.size, 0, this.size * 1.5);
         ctx.bezierCurveTo(this.size, this.size, this.size, -this.size / 2, 0, 0);
-        
+
         // Soft, romantic pink tones matching our --envelope color palette
         ctx.fillStyle = `rgba(224, 130, 152, ${this.opacity})`;
         ctx.fill();
@@ -131,21 +143,31 @@ class Petal {
 }
 
 // Instantiate Particle System
-const petalCount = 45; 
+const petalCount = 45;
 const petalsArray = [];
 for (let i = 0; i < petalCount; i++) {
     petalsArray.push(new Petal());
 }
 
 // Animation Loop
+// Animation Loop
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    for (let i = 0; i < petalsArray.length; i++) {
-        petalsArray[i].update();
-        petalsArray[i].draw();
+
+    // Loop backward to safely remove items without throwing off array indexes
+    for (let i = petalsArray.length - 1; i >= 0; i--) {
+        const p = petalsArray[i];
+
+        p.update();
+        p.draw();
+
+        // STRICT GARBAGE COLLECTION:
+        // Wipe out the golden blessing petal as soon as it fully fades out or falls below the fold
+        if (p.isBlessing && (p.opacity <= 0 || p.y > canvas.height + 20)) {
+            petalsArray.splice(i, 1);
+        }
     }
-    
+
     requestAnimationFrame(animate);
 }
 animate();
@@ -188,7 +210,7 @@ if (document.readyState === "loading") {
 // --- High-Performance Scroll Reveal Engine ---
 function initScrollAnimations() {
     const fadeElements = document.querySelectorAll('.fade-in-element');
-    
+
     const observerOptions = {
         root: null, // Viewport standard tracking
         threshold: 0.12, // Element percentage visible before firing trigger
@@ -217,36 +239,39 @@ if (document.readyState === "loading") {
     initScrollAnimations();
 }
 
-// --- Interactive Blessings Footer Trigger System ---
+// --- Optimized Interactive Blessings Footer Trigger System ---
 const stampBtn = document.getElementById('blessings-stamp-btn');
 const counterLabel = document.getElementById('blessings-counter');
+let lastClickTime = 0; // Throttle timer tracking
 
 if (stampBtn) {
     stampBtn.addEventListener('click', (e) => {
-        // 1. Toggle Button Visual Stamp Class state
+        const currentTime = Date.now();
+        // Throttle check: Prevent clicking more than once every 400 milliseconds
+        if (currentTime - lastClickTime < 400) return;
+        lastClickTime = currentTime;
+
         stampBtn.classList.add('stamped');
         counterLabel.classList.add('show');
-        
-        // 2. Fetch stamp window location geometry metrics
+
         const btnRect = stampBtn.getBoundingClientRect();
         const emitX = btnRect.left + btnRect.width / 2;
         const emitY = btnRect.top + btnRect.height / 2;
 
-        // 3. Inject customized golden burst particles straight into the running particle array
         if (typeof petalsArray !== 'undefined') {
-            for (let i = 0; i < 18; i++) {
+            // Reduced to 12 high-impact particles instead of 18 to optimize resources
+            for (let i = 0; i < 12; i++) {
                 const blessingParticle = new Petal();
-                
-                // Override standard top fall configuration vectors for a fountain burst effect
+
                 blessingParticle.x = emitX;
                 blessingParticle.y = emitY;
-                blessingParticle.size = Math.random() * 6 + 4;
-                blessingParticle.speedY = Math.random() * -4 - 2; // Shoot upwards violently
-                blessingParticle.speedX = Math.random() * 6 - 3;  // Fan out wide left and right
-                blessingParticle.opacity = 0.9;
-                
-                // Switch default color variable assignment temporarily into shimmering gold accents
-                blessingParticle.draw = function() {
+                blessingParticle.size = Math.random() * 5 + 3;
+                blessingParticle.speedY = Math.random() * -5 - 2; // Kinetic upward velocity
+                blessingParticle.speedX = Math.random() * 6 - 3;
+                blessingParticle.opacity = 1.0;
+                blessingParticle.isBlessing = true; // Flag for strict array garbage collection
+
+                blessingParticle.draw = function () {
                     ctx.save();
                     ctx.translate(this.x, this.y);
                     ctx.rotate(this.angle);
@@ -254,15 +279,14 @@ if (stampBtn) {
                     ctx.moveTo(0, 0);
                     ctx.bezierCurveTo(-this.size, -this.size / 2, -this.size, this.size, 0, this.size * 1.5);
                     ctx.bezierCurveTo(this.size, this.size, this.size, -this.size / 2, 0, 0);
-                    
-                    // Premium sparkling gold color layer profile
+
                     ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
-                    ctx.shadowBlur = 6;
-                    ctx.shadowColor = "rgba(212, 175, 55, 0.4)";
+                    ctx.shadowBlur = 4;
+                    ctx.shadowColor = "rgba(212, 175, 55, 0.3)";
                     ctx.fill();
                     ctx.restore();
                 };
-                
+
                 petalsArray.push(blessingParticle);
             }
         }
