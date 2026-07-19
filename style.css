@@ -250,6 +250,9 @@ body, html {
     opacity: 0;
 }
 
+/* Name Styling */
+
+
 /* ==========================================================================
    Countdown Timer
    ========================================================================== */
@@ -288,11 +291,76 @@ body, html {
 }
 
 /* --- Adjusted Scroll Indicator Spacing --- */
+/* Custom Character: The Double-Chevron Minimalist Down-Pointer */
 .scroll-indicator {
-    margin-top: 80px; /* Pushed significantly lower as requested */
-    font-size: 2rem;
-    color: var(--accent-gold);
-    animation: breathe 2.2s infinite ease-in-out;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding-top: 35px; /* Creates room for the absolute floating chevron */
+}
+
+/* Single Elegant Kinetic Double-Chevron Accent */
+.scroll-indicator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid var(--accent-gold);
+    border-bottom: 2px solid var(--accent-gold);
+    animation: luxuryChevronDrop 2s infinite ease-in-out;
+}
+
+.arrow-text {
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+    color: #8a857c;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+/* Elegant "Scroll" subtitle beneath the arrow character */
+.scroll-indicator::after {
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+    color: #8a857c;
+    margin-top: 12px;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   UX ANIMATION CORE TIMELINES
+   ========================================================================= */
+
+@keyframes premiumScrollDrop {
+    0% {
+        transform: translateY(-8px);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(12px);
+        opacity: 0;
+    }
+}
+
+@keyframes luxuryPulse {
+    0%, 100% {
+        transform: rotate(45deg) scale(0.9);
+        opacity: 0.2;
+    }
+    50% {
+        transform: rotate(45deg) scale(1.1);
+        opacity: 0.9;
+    }
 }
 
 /* ==========================================================================
@@ -310,22 +378,132 @@ body, html {
     display: flex; justify-content: center; align-items: center;
 }
 .hero-content { text-align: center; }
-.main-title {
-    font-size: 4.5rem; letter-spacing: 0.6rem;
-    color: var(--accent-gold); /* Match title color to the new gold centerpiece */
-    margin-bottom: 12px;
-}
+
 .subtitle {
     font-size: 1rem; text-transform: uppercase;
     letter-spacing: 4px; color: #888;
 }
-.scroll-indicator {
-    margin-top: 45px; font-size: 2rem;
-    color: var(--accent-gold);
-    animation: breathe 2.2s infinite ease-in-out;
-}
+
 @keyframes breathe {
     0%, 100% { transform: translateY(0); opacity: 0.25; }
     50% { transform: translateY(12px); opacity: 1; }
 }
 .details-stage { width: 100%; height: 120vh; padding: 80px 20px; }
+
+
+/* Name styling */
+/* ==========================================================================
+   PREMIUM EMBEDDED VECTOR ASSETS (BOW TIE & CROWN)
+   ========================================================================= */
+
+.main-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px; /* Widened slightly to give the calligraphy script breathing room */
+    font-size: 5.5rem; /* Marginally larger for dramatic presence */
+    
+    color: var(--accent-gold); 
+    margin-bottom: 35px;
+    text-shadow: 0px 2px 10px rgba(195, 155, 58, 0.15);
+}
+
+.initial-groom, .initial-bride {
+    position: relative;
+    display: inline-block;
+}
+
+.initial-ampersand {
+    font-size: 2.5rem;
+    font-style: italic;
+    color: var(--accent-gold); 
+    font-weight: 300;
+    margin: 0 5px;
+}
+
+/* --- Groom Accent: Detailed Silk Bow Tie Vector --- */
+.initial-groom::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; /* Moved up closer from -16px */
+    left: 50%;
+    transform: translateX(-50%);
+    
+    width: 28px;
+    height: 14px;
+    
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 12'><path d='M0,1 C2,3 4,5 6,5.5 C6,4 5,2 4,1 L12,4.5 L20,1 C19,2 18,4 18,5.5 C20,5 22,3 24,1 L24,11 C22,9 20,7 18,6.5 C18,8 19,10 20,11 L12,7.5 L4,11 C5,10 6,8 6,6.5 C4,7 2,9 0,11 Z' fill='%23d4af37'/><circle cx='12' cy='6' r='2' fill='%23b89326'/></svg>");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    opacity: 0.95;
+    filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.1));
+}
+
+/* --- Fixed Bride Crown: Perfectly Centered & Snugly Rested --- */
+.initial-bride::before {
+    content: '';
+    position: absolute;
+    top: 0px; /* Dropped down significantly closer from -12px */
+    left: 50%; /* Center aligned explicitly to the font block boundary box */
+    transform: translateX(-50%) translateY(-50%) rotate(6deg); /* Balanced regal tilt */
+    
+    width: 24px;
+    height: 18px;
+    
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 16'><path d='M2,14 L22,14 L23,8 L18,11 L12,4 L6,11 L1,8 Z M4,13 L5,10 L8,11.5 L12,6 L16,11.5 L19,10 L20,13 Z' fill='%23d4af37'/><circle cx='12' cy='3' r='1' fill='%23d4af37'/><circle cx='1' cy='7' r='0.8' fill='%23d4af37'/><circle cx='23' cy='7' r='0.8' fill='%23d4af37'/><rect x='4' y='14.5' width='16' height='1' fill='%23b89326'/></svg>");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    filter: drop-shadow(0px 1px 3px rgba(195, 155, 58, 0.25));
+}
+
+/* ==========================================================================
+   ANIMATION LIFECYCLES
+   ========================================================================= */
+
+@keyframes luxuryChevronDrop {
+    0% {
+        top: -8px;
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        top: 14px;
+        opacity: 0;
+    }
+}
+
+/* ==========================================================================
+   Mobile Adaptability Framework Realignment (Fixed Overrides)
+   ========================================================================= */
+@media (max-width: 600px) {
+    .main-title {
+        font-size: 4.2rem;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+    .initial-ampersand {
+        font-size: 2rem;
+    }
+    
+    /* FIX: Pull the mobile bow tie right up to hug the base of 'A' */
+    .initial-groom::after {
+        width: 22px;
+        height: 11px;
+        bottom: -4px; /* Tightened from -12px */
+    }
+    
+    /* FIX: Force the mobile crown down onto the peak of 'A' */
+    .initial-bride::before {
+        width: 20px;
+        height: 15px;
+        top: 2px; /* Shifted down from -6px to compensate for the smaller text height */
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%) rotate(6deg);
+    }
+}

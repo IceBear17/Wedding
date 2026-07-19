@@ -62,47 +62,134 @@ window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
 // Petal Particle Class
+// class Petal {
+//     constructor() {
+//         this.reset();
+//         // Stagger initial Y positions so they don't all drop from the top at once
+//         this.y = Math.random() * canvas.height;
+//     }
+
+//     reset() {
+//         this.x = Math.random() * canvas.width;
+//         this.y = -20;
+//         this.size = Math.random() * 8 + 6; // Distinct sizes for depth layers
+//         this.speedY = Math.random() * 1 + 0.7;
+//         this.speedX = Math.random() * 1 - 0.5;
+//         this.opacity = Math.random() * 0.5 + 0.3;
+//         this.angle = Math.random() * Math.PI * 2;
+//         this.spin = Math.random() * 0.02 - 0.01;
+
+//         // Multi-layered depth assignment (closer petals move faster)
+//         this.layer = this.size > 10 ? 3 : (this.size > 8 ? 2 : 1);
+//         this.speedY *= (this.layer * 0.5);
+//     }
+
+//     update() {
+//         // Handle unique decay/gravity logic if this is a golden blessing particle
+//         if (this.isBlessing) {
+//             this.opacity -= 0.012; // Smoothly fade out
+//             this.y += this.speedY;
+//             this.x += this.speedX;
+//             this.speedY += 0.1;    // Simulated downward gravity pull
+//             this.angle += this.spin;
+
+//             // Do NOT call reset() for blessing petals. Just let them fade away.
+//             return;
+//         }
+
+//         // --- Standard logic below for normal pink falling petals ---
+//         this.y += this.speedY;
+//         this.x += this.speedX + Math.sin(this.angle) * 0.2;
+//         this.angle += this.spin;
+
+//         // Mouse/Touch Interaction: Repulsion Physics
+//         if (mouse.x !== null && mouse.y !== null) {
+//             const dx = this.x - mouse.x;
+//             const dy = this.y - mouse.y;
+//             const distance = Math.sqrt(dx * dx + dy * dy);
+
+//             if (distance < mouse.radius) {
+//                 const force = (mouse.radius - distance) / mouse.radius;
+//                 const forceX = (dx / distance) * force * 5;
+//                 const forceY = (dy / distance) * force * 5;
+
+//                 this.x += forceX;
+//                 this.y += forceY;
+//             }
+//         }
+
+//         // Reset normal petals if out of bounds
+//         if (this.y > canvas.height + 20 || this.x < -20 || this.x > canvas.width + 20) {
+//             this.reset();
+//         }
+//     }
+
+//     draw() {
+//         ctx.save();
+//         ctx.translate(this.x, this.y);
+//         ctx.rotate(this.angle);
+//         ctx.beginPath();
+
+//         // Drawing an organic, beautiful leaf/petal shape using Bezier curves
+//         ctx.moveTo(0, 0);
+//         ctx.bezierCurveTo(-this.size, -this.size / 2, -this.size, this.size, 0, this.size * 1.5);
+//         ctx.bezierCurveTo(this.size, this.size, this.size, -this.size / 2, 0, 0);
+
+//         // Soft, romantic pink tones matching our --envelope color palette
+//         ctx.fillStyle = `rgba(224, 130, 152, ${this.opacity})`;
+//         ctx.fill();
+//         ctx.restore();
+//     }
+// }
+
+// Vibrant, Multi-Colored Flower Particle Class
 class Petal {
     constructor() {
         this.reset();
-        // Stagger initial Y positions so they don't all drop from the top at once
         this.y = Math.random() * canvas.height;
     }
 
     reset() {
         this.x = Math.random() * canvas.width;
         this.y = -20;
-        this.size = Math.random() * 8 + 6; // Distinct sizes for depth layers
-        this.speedY = Math.random() * 1 + 0.7;
+        this.size = Math.random() * 7 + 5; 
+        this.speedY = Math.random() * 0.8 + 0.6;
         this.speedX = Math.random() * 1 - 0.5;
-        this.opacity = Math.random() * 0.5 + 0.3;
+        this.opacity = Math.random() * 0.6 + 0.4;
         this.angle = Math.random() * Math.PI * 2;
-        this.spin = Math.random() * 0.02 - 0.01;
+        this.spin = Math.random() * 0.03 - 0.015;
 
-        // Multi-layered depth assignment (closer petals move faster)
-        this.layer = this.size > 10 ? 3 : (this.size > 8 ? 2 : 1);
-        this.speedY *= (this.layer * 0.5);
+        // Dynamic Petal Count Assignment per individual flower blossom
+        this.petalCount = Math.floor(Math.random() * 3) + 5; // 5, 6, or 7 unique petals
+
+        // Premium Vibrant Festive Palette Configuration
+        const floralPalettes = [
+            `rgba(242, 123, 153, `,  /* Vibrant Coral Pink */
+            `rgba(235, 168, 54, `,   /* Rich Marigold / Gold */
+            `rgba(150, 92, 168, `,   /* Elegant Plum Orchid */
+            `rgba(224, 94, 94, `,    /* Festive Soft Crimson */
+            `rgba(112, 168, 137, `   /* Fresh Sage Leaf Green Accent */
+        ];
+        this.colorBase = floralPalettes[Math.floor(Math.random() * floralPalettes.length)];
+
+        this.layer = this.size > 9 ? 3 : (this.size > 7 ? 2 : 1);
+        this.speedY *= (this.layer * 0.65);
     }
 
     update() {
-        // Handle unique decay/gravity logic if this is a golden blessing particle
         if (this.isBlessing) {
-            this.opacity -= 0.012; // Smoothly fade out
+            this.opacity -= 0.012; 
             this.y += this.speedY;
             this.x += this.speedX;
-            this.speedY += 0.1;    // Simulated downward gravity pull
+            this.speedY += 0.1;    
             this.angle += this.spin;
-
-            // Do NOT call reset() for blessing petals. Just let them fade away.
             return;
         }
 
-        // --- Standard logic below for normal pink falling petals ---
         this.y += this.speedY;
-        this.x += this.speedX + Math.sin(this.angle) * 0.2;
+        this.x += this.speedX + Math.sin(this.angle) * 0.15;
         this.angle += this.spin;
 
-        // Mouse/Touch Interaction: Repulsion Physics
         if (mouse.x !== null && mouse.y !== null) {
             const dx = this.x - mouse.x;
             const dy = this.y - mouse.y;
@@ -112,13 +199,11 @@ class Petal {
                 const force = (mouse.radius - distance) / mouse.radius;
                 const forceX = (dx / distance) * force * 5;
                 const forceY = (dy / distance) * force * 5;
-
                 this.x += forceX;
                 this.y += forceY;
             }
         }
 
-        // Reset normal petals if out of bounds
         if (this.y > canvas.height + 20 || this.x < -20 || this.x > canvas.width + 20) {
             this.reset();
         }
@@ -128,22 +213,43 @@ class Petal {
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.rotate(this.angle);
-        ctx.beginPath();
-
-        // Drawing an organic, beautiful leaf/petal shape using Bezier curves
-        ctx.moveTo(0, 0);
-        ctx.bezierCurveTo(-this.size, -this.size / 2, -this.size, this.size, 0, this.size * 1.5);
-        ctx.bezierCurveTo(this.size, this.size, this.size, -this.size / 2, 0, 0);
-
-        // Soft, romantic pink tones matching our --envelope color palette
-        ctx.fillStyle = `rgba(224, 130, 152, ${this.opacity})`;
-        ctx.fill();
+        
+        if (this.isBlessing) {
+            // High-end golden blast details remain for button feedback loop
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.bezierCurveTo(-this.size, -this.size / 2, -this.size, this.size, 0, this.size * 1.5);
+            ctx.bezierCurveTo(this.size, this.size, this.size, -this.size / 2, 0, 0);
+            ctx.fillStyle = `rgba(212, 175, 55, ${this.opacity})`;
+            ctx.shadowBlur = 4;
+            ctx.shadowColor = "rgba(212, 175, 55, 0.3)";
+            ctx.fill();
+        } else {
+            // PROCEDURAL FLOWER DESIGN: Loops out geometric organic leaf layers
+            ctx.fillStyle = `${this.colorBase}${this.opacity})`;
+            
+            for (let i = 0; i < this.petalCount; i++) {
+                ctx.beginPath();
+                // Draw a beautiful elongated petal lobe out from origin axis coordinates
+                ctx.ellipse(0, this.size * 0.6, this.size * 0.35, this.size * 0.6, 0, 0, Math.PI * 2);
+                ctx.fill();
+                // Evenly stagger rotation tracking to assemble complete circular blossoms
+                ctx.rotate((Math.PI * 2) / this.petalCount);
+            }
+            
+            // Add a clean velvet ivory tiny blossom core dot center for ultimate contrast definition
+            ctx.beginPath();
+            ctx.arc(0, 0, this.size * 0.2, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 254, 249, ${this.opacity * 0.9})`;
+            ctx.fill();
+        }
+        
         ctx.restore();
     }
 }
 
 // Instantiate Particle System
-const petalCount = 45;
+const petalCount = 20;
 const petalsArray = [];
 for (let i = 0; i < petalCount; i++) {
     petalsArray.push(new Petal());
