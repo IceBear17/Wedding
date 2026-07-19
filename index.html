@@ -1,44 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>A & A - You Are Invited</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <div class="container">
-        <div class="envelope-wrapper" id="envelopeWrapper">
-            
-            <div class="envelope">
-                <div class="flap"></div>
-                <div class="pocket"></div>
-                
-                <div class="stamp" id="waxStamp">
-                    <span class="initials">A&A</span>
-                    <span class="click-text">Press to Open</span>
-                </div>
-            </div>
+    <div id="envelope-curtain">
+        <div class="envelope-seam seam-top"></div>
+        <div class="envelope-seam seam-bottom"></div>
+        <div class="envelope-seam seam-left"></div>
+        <div class="envelope-seam seam-right"></div>
 
-            <div class="invitation-card" id="invitationCard">
-                <div class="card-content">
-                    <h2>Save the Date</h2>
-                    <p class="names">Abdullah & Ayesha</p>
-                    <p class="details">Are getting married!</p>
-                    <hr class="divider">
-                    <p class="date">August 20, 2026</p>
-                    <p class="venue">Zayani Majlis, Muharraq</p>
-                    
-                    <div class="actions">
-                        <button class="btn">Get Directions</button>
-                    </div>
-                </div>
-            </div>
+        <div class="luxury-centerpiece" id="gate-trigger">
+            <div class="matte-wax-base"></div>
 
+            <div class="metallic-emblem">
+                <svg viewBox="0 0 100 100" class="geometric-a">
+                    <path d="M50 18 L22 82 L38 82 L43 68 L57 68 L62 82 L78 82 Z M47 55 L50 42 L53 55 Z"
+                        fill="var(--text-dark)" style="mix-blend-mode: overlay; opacity: 0.85;" />
+                </svg>
+                <div class="metallic-shine"></div>
+            </div>
         </div>
+    </div>
+
+    <canvas id="ambient-canvas"></canvas>
+
+    <div class="bg-architecture">
+        <div class="pillar pillar-left"></div>
+        <div class="arch"></div>
+        <div class="pillar pillar-right"></div>
+    </div>
+
+    <div id="scroll-container">
+        <section class="hero-stage">
+            <div class="hero-content">
+                <h1 class="main-title">A & A</h1>
+                <p class="subtitle">The Stage is Set</p>
+
+                <div class="scroll-indicator">
+                    <span class="arrow">↓</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="details-stage">
+        </section>
     </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>

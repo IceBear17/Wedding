@@ -1,193 +1,287 @@
+/* --- Optimized Global Design System (Pivot Palette) --- */
 :root {
-    --bg-color: #dfd7cc;
-    --envelope-color: #2b4c3f; /* Elegant Deep Emerald */
-    --envelope-flap: #1f372e;
-    --stamp-color: #b52b2b; /* Deep Wax Red */
-    --card-bg: #fffcf7;
-    --text-color: #333;
+    --bg-soft-tone: #f9f6f0;
+    /* NEW LIGHT MATTE ENVELOPE: Soft Warm Grey/Off-White */
+    --envelope-bg: #e6e3dd; 
+    /* METALLIC ACCENT: Aged Brass/Soft Gold */
+    --accent-gold: #c39b3a; 
+    /* NEUTRAL MATTE WAX: Warm Ivory/Stone */
+    --wax-matte: #e0d9c9;
+    --text-dark: #2c2c2c;
+    --font-serif: 'Playfair Display', 'Georgia', serif;
+    --paper-grain: url('paper-texture.png');
+
 }
 
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
-body {
-    background-color: var(--bg-color);
-    font-family: 'Georgia', serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: hidden;
-    perspective: 1000px; /* Crucial for 3D flap flip */
-}
-
-.container {
-    position: relative;
-    width: 100%;
-    max-width: 420px;
-    height: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Envelope Wrapper */
-.envelope-wrapper {
-    position: relative;
-    width: 380px;
-    height: 280px;
-    transition: transform 0.5s ease;
-}
-
-.envelope {
-    position: relative;
+body, html {
     width: 100%;
     height: 100%;
-    background-color: var(--envelope-color);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    z-index: 2;
-}
-
-/* 3D Flap */
-.flap {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 190px solid transparent;
-    border-right: 190px solid transparent;
-    border-top: 140px solid var(--envelope-flap);
-    transform-origin: top;
-    transition: transform 0.6s ease 0.2s; /* delays flap until stamp animation finishes */
-    z-index: 4;
-}
-
-/* Bottom Pocket of Envelope */
-.pocket {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 190px solid transparent;
-    border-right: 190px solid transparent;
-    border-bottom: 150px solid var(--envelope-color);
-    filter: brightness(0.95);
-    z-index: 3;
-}
-
-/* Wax Stamp Button */
-.stamp {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -30%);
-    width: 80px;
-    height: 80px;
-    background-color: var(--stamp-color);
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #e6c687;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3), inset 0 0 8px rgba(0,0,0,0.4);
-    cursor: pointer;
-    z-index: 5;
-    transition: transform 0.3s ease, opacity 0.5s ease;
-}
-
-.stamp:active {
-    transform: translate(-50%, -30%) scale(0.9);
-}
-
-.initials {
-    font-weight: bold;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-}
-
-.click-text {
-    font-size: 0.5rem;
-    text-transform: uppercase;
-    margin-top: 4px;
-    opacity: 0.8;
-}
-
-/* The Secret Invitation Card */
-.invitation-card {
-    position: absolute;
-    top: 10px;
-    left: 15px;
-    width: 350px;
-    height: 260px;
-    background-color: var(--card-bg);
-    padding: 30px 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    z-index: 1;
-    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1) 0.6s, height 0.8s cubic-bezier(0.19, 1, 0.22, 1) 0.6s;
+    background-color: var(--bg-soft-tone);
+    font-family: var(--font-serif);
+    color: var(--text-dark);
     overflow: hidden;
-    border-radius: 4px;
 }
 
-.card-content {
-    text-align: center;
-    color: var(--text-color);
-    opacity: 0;
-    transition: opacity 0.5s ease 1s;
-}
-
-.names {
-    font-size: 1.8rem;
-    margin: 10px 0;
-    color: var(--envelope-color);
-}
-
-.divider {
-    border: none;
-    border-top: 1px solid #d4af37; /* Gold accent */
-    width: 60%;
-    margin: 15px auto;
-}
-
-.btn {
-    margin-top: 15px;
-    padding: 8px 16px;
-    background: var(--envelope-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-/* --- ANIMATION STATES TRIPPED BY JS --- */
-
-.envelope-wrapper.is-open .stamp {
-    transform: translate(-50%, -30%) scale(0);
-    opacity: 0;
+/* --- Ambient Canvas Layer --- */
+#ambient-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 1;
     pointer-events: none;
 }
 
-.envelope-wrapper.is-open .flap {
-    transform: rotateX(180deg);
-    z-index: 1; /* Drop behind the card once opened */
+/* --- Architectural Background (Retain) --- */
+.bg-architecture {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.6;
+    transition: transform 0.15s ease-out;
+    will-change: transform;
 }
 
-.envelope-wrapper.is-open .invitation-card {
-    transform: translateY(-200px); /* Slides up out of the envelope */
-    height: 480px; /* Expands visually into a full card/scroll */
-    z-index: 4; /* Sits proudly in front of envelope */
+.pillar {
+    position: absolute;
+    bottom: 0;
+    width: 6vw; min-width: 50px;
+    height: 95vh;
+    background: linear-gradient(90deg, #e3decb, #f1ebd9, #e3decb);
+    box-shadow: 5px 0 15px rgba(0,0,0,0.03);
+    border-radius: 4px 4px 0 0;
+}
+.pillar-left { left: 2vw; }
+.pillar-right { right: 2vw; }
+.arch {
+    position: absolute;
+    top: -5vh; left: 50%; transform: translateX(-50%);
+    width: 90vw; height: 40vh;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    border: 3px double #e3decb;
+    border-bottom: none;
 }
 
-.envelope-wrapper.is-open .card-content {
-    opacity: 1;
+/* ==========================================================================
+   FIXED LIGHT GEOMETRIC ENVELOPE CURTAIN (WITH NATIVE TEXTURE)
+   ========================================================================= */
+
+#envelope-curtain {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100vw; 
+    height: 100vh;
+    z-index: 10;
+    overflow: hidden;
+    background: transparent;
+    transition: opacity 1.2s cubic-bezier(0.77, 0, 0.175, 1), pointer-events 1s;
 }
 
-/* Move the whole unit down a bit when opened to balance screen space */
-.envelope-wrapper.is-open {
-    transform: translateY(100px);
+/* Four Geometric Flaps Meeting at Centerline */
+.envelope-seam {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: var(--envelope-bg);
+    
+    /* MULTI-BACKGROUND STACK: (Gradients + Paper Texture Overlay) */
+    background-repeat: repeat;
+    background-blend-mode: multiply; /* Melds grain with shadows */
+    
+    /* REMOVE the generic inset box-shadow */
+    /* box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.06); */
+    
+    transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+    will-change: transform;
 }
+
+/* --- Geometry Defined by Deep Inner Shadows --- */
+
+.seam-top {
+    height: 50%;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top;
+    
+    /* SHADOW FIX: Soft gradient makes the lower edge stand out */
+    background-image: var(--paper-grain), 
+                      linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.06) 100%);
+    
+    /* Remove thin border and brightness */
+    border-bottom: none;
+    filter: none;
+}
+
+.seam-bottom {
+    top: 50%;
+    height: 50%;
+    clip-path: polygon(0 100%, 100% 100%, 50% 0);
+    transform-origin: bottom;
+    
+    /* SHADOW FIX: Darkens the center meeting point heavily */
+    background-image: var(--paper-grain), 
+                      linear-gradient(to top, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.18) 100%);
+    
+    border-top: none;
+    filter: none;
+}
+
+.seam-left {
+    width: 50%;
+    clip-path: polygon(0 0, 0 100%, 100% 50%);
+    transform-origin: left;
+    
+    /* SHADOW FIX: Darkens the center vertical line meeting */
+    background-image: var(--paper-grain), 
+                      linear-gradient(to right, rgba(0,0,0,0.03) 60%, rgba(0,0,0,0.14) 100%);
+    
+    filter: none;
+}
+
+.seam-right {
+    left: 50%;
+    width: 50%;
+    clip-path: polygon(100% 0, 100% 100%, 0% 50%);
+    transform-origin: right;
+    
+    /* SHADOW FIX: Darkens the center vertical line meeting */
+    background-image: var(--paper-grain), 
+                      linear-gradient(to left, rgba(0,0,0,0.03) 60%, rgba(0,0,0,0.14) 100%);
+    
+    filter: none;
+}
+
+/* Opening Animations: Pull flaps cleanly out of screen */
+#envelope-curtain.opened .seam-top { transform: translateY(-100%); }
+#envelope-curtain.opened .seam-bottom { transform: translateY(100%); }
+#envelope-curtain.opened .seam-left { transform: translateX(-100%); }
+#envelope-curtain.opened .seam-right { transform: translateX(100%); }
+
+#envelope-curtain.opened {
+    opacity: 0;
+    pointer-events: none; /* Let clicks pass directly to the inner layout layers */
+}
+/* ==========================================================================
+   UPDATED MULTI-LAYERED CENTERPIECE (Glow Up)
+   ========================================================================== */
+
+.luxury-centerpiece {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 110px;
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 11;
+    cursor: pointer;
+    transition: transform 0.4s ease, opacity 0.6s ease;
+}
+
+/* Layer 1: The Matte Wax Inner Ring Plate */
+.matte-wax-base {
+    position: absolute;
+    width: 100%; 
+    height: 100%;
+    background-color: var(--wax-matte);
+    background-image: var(--paper-grain);
+    background-repeat: repeat;
+    background-blend-mode: multiply;
+    
+    border-radius: 50% 48% 52% 49% / 51% 53% 47% 49%;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12), inset 0 -2px 4px rgba(0,0,0,0.1);
+}
+
+/* Layer 2: The Raised Polished Gold Medallion */
+.metallic-emblem {
+    position: relative;
+    width: 65%; 
+    height: 65%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f3d689 0%, var(--accent-gold) 50%, #866313 100%);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25), inset 0 2px 4px rgba(255,255,255,0.5);
+    overflow: hidden;
+}
+
+.geometric-a {
+    width: 65%; 
+    height: 65%;
+    z-index: 2; /* Forces letter layer above the sheen overlay */
+    filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.3));
+}
+
+.metallic-shine {
+    position: absolute;
+    top: 0; 
+    left: -150%;
+    width: 150%; 
+    height: 100%;
+    background: linear-gradient(90deg, transparent 30%, rgba(255,255,255,0.5) 50%, transparent 70%);
+    animation: metalSweep 3.5s infinite ease-in-out;
+}
+
+@keyframes metalSweep {
+    0% { left: -150%; }
+    30% { left: 150%; }
+    100% { left: 150%; }
+}
+
+.luxury-centerpiece:hover {
+    transform: translate(-50%, -50%) scale(1.06);
+}
+
+#envelope-curtain.opened .luxury-centerpiece {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+}
+
+
+/* ==========================================================================
+   SCROLLABLE HERO CONTENT (Retain)
+   ========================================================================== */
+
+#scroll-container {
+    width: 100%; height: 100%;
+    overflow-y: auto; scroll-behavior: smooth;
+    position: relative; z-index: 2;
+}
+
+.hero-stage {
+    width: 100%; height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+}
+.hero-content { text-align: center; }
+.main-title {
+    font-size: 4.5rem; letter-spacing: 0.6rem;
+    color: var(--accent-gold); /* Match title color to the new gold centerpiece */
+    margin-bottom: 12px;
+}
+.subtitle {
+    font-size: 1rem; text-transform: uppercase;
+    letter-spacing: 4px; color: #888;
+}
+.scroll-indicator {
+    margin-top: 45px; font-size: 2rem;
+    color: var(--accent-gold);
+    animation: breathe 2.2s infinite ease-in-out;
+}
+@keyframes breathe {
+    0%, 100% { transform: translateY(0); opacity: 0.25; }
+    50% { transform: translateY(12px); opacity: 1; }
+}
+.details-stage { width: 100%; height: 120vh; padding: 80px 20px; }
