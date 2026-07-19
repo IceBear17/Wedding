@@ -317,11 +317,15 @@ body, html {
 }
 
 .arrow-text {
-    font-size: 0.65rem;
+    font-size: 0.7rem; /* Marginally larger for better screen scaling */
+    text-transform: uppercase;
     letter-spacing: 4px;
-    color: #8a857c;
-    font-weight: 400;
-    opacity: 0.8;
+    
+    /* Contrast Fix: Swapped out the faint gray to match the subtitle framework */
+    color: #272625; 
+    
+    font-weight: 500;
+    opacity: 0.95; /* Increased opacity to prevent rendering fadeout */
 }
 
 /* Elegant "Scroll" subtitle beneath the arrow character */
@@ -380,8 +384,14 @@ body, html {
 .hero-content { text-align: center; }
 
 .subtitle {
-    font-size: 1rem; text-transform: uppercase;
-    letter-spacing: 4px; color: #888;
+    font-size: 1rem; 
+    text-transform: uppercase;
+    letter-spacing: 5px; /* Slightly widened track space for elegance */
+    
+    /* Contrast Fix: Moved from a faint gray to a deep charcoal stone */
+    color: #272625; 
+    
+    font-weight: 500; /* Subtle weight increase to improve readability */
 }
 
 @keyframes breathe {

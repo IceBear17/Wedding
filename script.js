@@ -282,7 +282,7 @@ animate();
 // --- Premium Wedding Countdown Logic ---
 function initCountdown() {
     // Target: August 21 at 20:00 (8:00 PM)
-    const targetDate = new Date("August 21, 2026 20:00:00").getTime();
+    const targetDate = new Date("August 20, 2026 20:00:00").getTime();
 
     const timer = setInterval(() => {
         const now = new Date().getTime();
